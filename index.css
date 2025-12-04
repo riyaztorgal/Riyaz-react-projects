@@ -1,0 +1,77 @@
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    border: 0.2cap solid black;
+}
+
+.logo{
+    width: 150px;
+}
+
+
+.nav-tab > ul {
+    display: flex;
+    font-size: 24;
+    list-style-type: none;
+    margin-right: 50px;
+    margin-top: 40px;
+}
+
+.nav-tab > ul > li {
+    padding: 10px;
+    margin: 10px;
+}
+
+.foot-tab > ul{
+    display: flex;
+    list-style-type: none;
+
+}
+.foot-tab > ul > li {
+    text-align: center;
+    padding-left: 50px;
+}
+
+.footer{
+    border: 0.2cap solid black;
+}
+
+.body{
+  margin: 0;
+ 
+}
+
+.resto-container{
+    width: 200px;
+    margin: 5px;   
+    padding: 5px; 
+     background-color: rgb(202, 202, 202);
+     transition: transform 0.2s ease;
+    
+}
+
+.resto-container:hover{
+     transform: scale(1.05);
+    cursor: pointer;
+}
+
+.rest0-card{
+    display: flex;
+    flex-wrap: wrap;
+
+   
+}
+
+.resto-logo{
+    width: 100%;
+}
+
+.searchBr{
+    padding: 10px;
+}
+
+.reset-btn{
+    margin: 10px;
+}
+

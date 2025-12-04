@@ -1,0 +1,29 @@
+{
+  "name": "react-project",
+  "version": "1.0.0",
+  "description": "Getting started with React",
+  "keywords": [],
+  "homepage": "https://github.com/riyaztorgal/Riyaz-react-projects#readme",
+  "bugs": {
+    "url": "https://github.com/riyaztorgal/Riyaz-react-projects/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riyaztorgal/Riyaz-react-projects.git"
+  },
+  "license": "ISC",
+  "author": "Riyazshaheed",
+  "type": "commonjs",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "parcel": "^2.16.1"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  }
+}
