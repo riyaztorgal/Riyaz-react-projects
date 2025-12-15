@@ -1,19 +1,68 @@
 import RestoContainer from "../Components/RestoContainer";
 import restoList from "../utils/mockData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [restorentList, setRestorentList] = useState(restoList);
+  const [restorentList, setRestorentList] = useState([]);
+  const [filteredRestorentList, setfilteredRestorentList] = useState([]);
+  const [searchText, setsearchText] = useState("");
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9689968&lng=77.72088529999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+
+    const jsonData = await data.json();
+
+    setRestorentList(
+      jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+    setfilteredRestorentList(
+      jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+  };
+
+  if (restorentList.length === 0) {
+    return <Shimmer />;
+  }
   return (
     <div className="body">
       <div className="searchBr">
+        <div className="search-btn">
+          <input
+            type="text"
+            className="search-text"
+            value={searchText}
+            onChange={(e) => {
+              setsearchText(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              const searchedRestorent = restorentList.filter((resName) =>
+                resName.info.name
+                  .toLowerCase()
+                  .includes(searchText.toLowerCase())
+              );
+              setfilteredRestorentList(searchedRestorent);
+            }}
+          >
+            Search
+          </button>
+        </div>
         <button
-          className="search-btn"
+          className="top-rated-btn"
           onClick={() => {
             const filteredResto = restorentList.filter(
-              (res) => res.info.avgRating > 4.5
+              (res) => res.info.avgRating > 4.2
             );
-            setRestorentList(filteredResto);
+            setfilteredRestorentList(filteredResto);
           }}
         >
           Top Rated Restorent
@@ -21,7 +70,7 @@ const Body = () => {
         <button
           className="reset-btn"
           onClick={() => {
-            setRestorentList(restoList);
+            setfilteredRestorentList(restorentList);
           }}
         >
           Reset Filter
@@ -29,7 +78,7 @@ const Body = () => {
       </div>
 
       <div className="rest0-card">
-        {restorentList.map((restaurant) => (
+        {filteredRestorentList.map((restaurant) => (
           <RestoContainer key={restaurant.info.id} restoObj={restaurant} />
         ))}
       </div>
