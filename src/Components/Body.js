@@ -4,9 +4,12 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
+  //user of useState
   const [restorentList, setRestorentList] = useState([]);
   const [filteredRestorentList, setfilteredRestorentList] = useState([]);
   const [searchText, setsearchText] = useState("");
+
+  //use of useEffect
   useEffect(() => {
     fetchData();
   }, []);
