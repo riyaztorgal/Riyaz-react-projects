@@ -1,6 +1,7 @@
 import RestoContainer from "../Components/RestoContainer";
 import restoList from "../utils/mockData";
 import { useState, useEffect } from "react";
+import useOnlineStatus from "../utils/useOnlineStatus";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
@@ -31,9 +32,16 @@ const Body = () => {
     );
   };
 
+  const onlinestatus = useOnlineStatus();
+  if (onlinestatus === false)
+    return (
+      <h1>You are offline.! kindly check Internet Connection and Retry</h1>
+    );
+
   if (restorentList.length === 0) {
     return <Shimmer />;
   }
+
   return (
     <div className="body">
       <div className="searchBr">

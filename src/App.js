@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Body from "./Components/Body";
 import Header from "./Components/Header";
@@ -8,6 +8,8 @@ import Contact from "./Components/Contact";
 import UserError from "./Components/UserError";
 import RestoMenu from "./Components/RestoMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router";
+
+const InstaMart = lazy(() => import("./Components/InstaMart"));
 
 const AppLayout = () => {
   return (
@@ -40,6 +42,15 @@ const appRouter = createBrowserRouter([
       {
         path: "/restoMenu/:restoId",
         element: <RestoMenu />,
+      },
+      {
+        path: "/instaMart",
+        element: (
+          <Suspense fallback={<h1>Loading Page Please Wait</h1>}>
+            {" "}
+            <InstaMart />{" "}
+          </Suspense>
+        ),
       },
     ],
   },
