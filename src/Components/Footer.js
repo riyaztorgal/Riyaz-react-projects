@@ -1,14 +1,12 @@
 const Footer = () => {
   return (
-    <div className="footer">
-      <div className="foot-tab">
-        <ul>
-          <li>Copyright</li>
-          <li>Links</li>
-          <li>Address</li>
-          <li>Support</li>
-        </ul>
-      </div>
+    <div className="bg-pink-100 flex">
+      <ul className="flex p-4">
+        <li className="m-4">Copyright</li>
+        <li className="m-4">Links</li>
+        <li className="m-4">Address</li>
+        <li className="m-4">Support</li>
+      </ul>
     </div>
   );
 };

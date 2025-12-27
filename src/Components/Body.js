@@ -1,14 +1,21 @@
-import RestoContainer from "../Components/RestoContainer";
+import RestoContainer, {
+  withRestoContainerPrmoted,
+} from "../Components/RestoContainer";
 import restoList from "../utils/mockData";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
+import UserContextData from "../utils/UserContexData";
 
 const Body = () => {
   //user of useState
   const [restorentList, setRestorentList] = useState([]);
   const [filteredRestorentList, setfilteredRestorentList] = useState([]);
   const [searchText, setsearchText] = useState("");
+  const RestoContainerVeg = withRestoContainerPrmoted(RestoContainer);
+
+  const { setUserLoginData } = useContext(UserContextData);
 
   //use of useEffect
   useEffect(() => {
@@ -44,17 +51,18 @@ const Body = () => {
 
   return (
     <div className="body">
-      <div className="searchBr">
+      <div className="flex">
         <div className="search-btn">
           <input
             type="text"
-            className="search-text"
+            className="border-2 shadow-amber-50 m-4 rounded-md "
             value={searchText}
             onChange={(e) => {
               setsearchText(e.target.value);
             }}
           />
           <button
+            className="py-2 px-4 bg-green-100 rounded-lg hover:bg-green-200"
             onClick={() => {
               const searchedRestorent = restorentList.filter((resName) =>
                 resName.info.name
@@ -67,30 +75,47 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="top-rated-btn"
-          onClick={() => {
-            const filteredResto = restorentList.filter(
-              (res) => res.info.avgRating > 4.2
-            );
-            setfilteredRestorentList(filteredResto);
-          }}
-        >
-          Top Rated Restorent
-        </button>
-        <button
-          className="reset-btn"
-          onClick={() => {
-            setfilteredRestorentList(restorentList);
-          }}
-        >
-          Reset Filter
-        </button>
+        <div className="px-4 py-2">
+          <button
+            className="py-2 px-4 bg-blue-100 rounded-lg hover:bg-blue-200"
+            onClick={() => {
+              const filteredResto = restorentList.filter(
+                (res) => res.info.avgRating > 4.2
+              );
+              setfilteredRestorentList(filteredResto);
+            }}
+          >
+            Top Rated Restorent
+          </button>
+          <button
+            className="mx-4 py-2 px-4 bg-red-100 rounded-lg hover:bg--200"
+            onClick={() => {
+              setfilteredRestorentList(restorentList);
+            }}
+          >
+            Reset Filter
+          </button>
+        </div>
+        <div className="mx-2 py-2 px-2">
+          <label>Live UserName Update : </label>
+          <input
+            className="border-2 p-2 shadow-amber-50 rounded-md "
+            onChange={(e) => {
+              setUserLoginData(e.target.value);
+            }}
+          />
+        </div>
       </div>
 
-      <div className="rest0-card">
+      <div className="flex flex-wrap p-5">
         {filteredRestorentList.map((restaurant) => (
-          <RestoContainer key={restaurant.info.id} restoObj={restaurant} />
+          <Link to="/restoMenu/234" key={restaurant?.info?.id}>
+            {restaurant?.info?.veg ? (
+              <RestoContainerVeg restoObj={restaurant} />
+            ) : (
+              <RestoContainer restoObj={restaurant} />
+            )}
+          </Link>
         ))}
       </div>
     </div>

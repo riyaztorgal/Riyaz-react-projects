@@ -1,6 +1,7 @@
 import React from "react";
 import UserFunc from "./UserFunc";
 import UserClass from "./UserClass";
+import UserContextData from "../utils/UserContexData";
 
 class About extends React.Component {
   constructor(props) {
@@ -13,10 +14,10 @@ class About extends React.Component {
     return (
       <div>
         <h1>About Us</h1>
-        <h2>
-          {" "}
-          Welcome to Riyaz's React Practice website and this is about us{" "}
-        </h2>
+        <UserContextData.Consumer>
+          {(data) => <h2 className="font-bold">{data.loggedInUser}</h2>}
+        </UserContextData.Consumer>
+        <h2>Welcome to Riyaz's React Practice website and this is about us</h2>
 
         <UserFunc />
 
